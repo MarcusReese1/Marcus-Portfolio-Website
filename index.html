@@ -389,6 +389,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,255,65,0.08);
         }
 
         .project-card::before {
@@ -404,6 +405,14 @@
         .project-card:hover {
             box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
             transform: translateY(-10px);
+            border-color: var(--cyber-green);
+            animation: project-pop 0.4s cubic-bezier(.4,2,.6,1) forwards;
+        }
+
+        @keyframes project-pop {
+            0% { transform: translateY(0) scale(1); }
+            60% { transform: translateY(-12px) scale(1.04); }
+            100% { transform: translateY(-10px) scale(1.02); }
         }
 
         .project-title {
@@ -549,11 +558,20 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
+            box-shadow: 0 2px 12px rgba(0,255,65,0.08);
         }
 
         .btn-submit:hover {
             box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
             transform: translateY(-3px);
+            filter: brightness(1.15) drop-shadow(0 0 8px var(--cyber-green));
+            animation: button-pop 0.3s cubic-bezier(.4,2,.6,1) forwards;
+        }
+
+        @keyframes button-pop {
+            0% { transform: translateY(0) scale(1); }
+            60% { transform: translateY(-5px) scale(1.06); }
+            100% { transform: translateY(-3px) scale(1.03); }
         }
 
         /* Responsive Design */
@@ -963,6 +981,28 @@
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Honors Section -->
+    <section id="awards" class="section">
+        <h2 class="fade-in">Awards & Honors</h2>
+        <div class="awards-grid" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+            <div class="award-card fade-in" style="background: var(--card-bg); border: 1px solid var(--cyber-green); border-radius: 15px; padding: 30px; min-width: 260px; text-align: center; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,255,65,0.08); transition: box-shadow 0.3s, transform 0.3s;">
+                <i class="fas fa-award" style="font-size: 2.2rem; color: var(--cyber-green); margin-bottom: 15px;"></i>
+                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Chevron Energy Leader Scholarship</div>
+                <div style="color: var(--text-secondary);">LSU</div>
+            </div>
+            <div class="award-card fade-in" style="background: var(--card-bg); border: 1px solid var(--cyber-blue); border-radius: 15px; padding: 30px; min-width: 260px; text-align: center; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0,102,255,0.08); transition: box-shadow 0.3s, transform 0.3s;">
+                <i class="fas fa-certificate" style="font-size: 2.2rem; color: var(--cyber-blue); margin-bottom: 15px;"></i>
+                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">Dean's List</div>
+                <div style="color: var(--text-secondary);">Fall 2023</div>
+            </div>
+            <div class="award-card fade-in" style="background: var(--card-bg); border: 1px solid var(--cyber-purple); border-radius: 15px; padding: 30px; min-width: 260px; text-align: center; margin-bottom: 20px; box-shadow: 0 0 10px rgba(138,43,226,0.08); transition: box-shadow 0.3s, transform 0.3s;">
+                <i class="fas fa-certificate" style="font-size: 2.2rem; color: var(--cyber-purple); margin-bottom: 15px;"></i>
+                <div style="font-size: 1.1rem; font-weight: bold; margin-bottom: 8px;">President's List</div>
+                <div style="color: var(--text-secondary);">Spring 2025</div>
             </div>
         </div>
     </section>
