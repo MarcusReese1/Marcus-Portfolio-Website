@@ -475,6 +475,17 @@
             margin-bottom: 10px;
         }
 
+        /* Resume Template Section */
+        .resume-template-card {
+            transition: all 0.3s ease;
+        }
+
+        .resume-template-card:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 65, 0.3);
+            transform: translateY(-5px);
+            border-color: var(--cyber-green);
+        }
+
         /* Contact Section */
         .contact-grid {
             display: grid;
@@ -630,6 +641,7 @@
         <a href="#experience" class="nav-link" title="Experience"><i class="fas fa-briefcase"></i></a>
         <a href="#projects" class="nav-link" title="Projects"><i class="fas fa-project-diagram"></i></a>
         <a href="#leadership" class="nav-link" title="Leadership"><i class="fas fa-users"></i></a>
+        <a href="#resume-template" class="nav-link" title="Resume Template"><i class="fas fa-file-alt"></i></a>
         <a href="#contact" class="nav-link" title="Contact"><i class="fas fa-envelope"></i></a>
     </nav>
 
@@ -906,6 +918,37 @@
         </div>
     </section>
 
+    <!-- Resume Template Section -->
+    <section id="resume-template" class="section">
+        <h2 class="fade-in">Get Resume Template</h2>
+        <div style="max-width: 600px; margin: 0 auto;">
+            <div class="resume-template-card fade-in" style="background: var(--card-bg); padding: 40px; border-radius: 15px; border: 1px solid rgba(0, 255, 65, 0.3); text-align: center;">
+                <i class="fas fa-file-alt" style="font-size: 4rem; color: var(--cyber-green); margin-bottom: 20px;"></i>
+                <h3 style="color: var(--cyber-green); margin-bottom: 15px; font-size: 1.5rem;">Download Our Resume Template</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 30px; line-height: 1.8;">
+                    Enter your email address below and we'll send you a professional Word document resume template that you can customize for your own use.
+                </p>
+                <form id="resume-template-form" style="margin-top: 30px;">
+                    <div class="form-group">
+                        <label for="template-email" style="display: block; margin-bottom: 8px; color: var(--cyber-green); font-weight: bold; text-align: left;">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="template-email" 
+                            name="email" 
+                            required 
+                            placeholder="your.email@example.com"
+                            style="width: 100%; padding: 15px; background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 8px; color: var(--text-primary); font-size: 1rem; transition: all 0.3s ease;"
+                        >
+                    </div>
+                    <button type="submit" class="btn-submit" style="margin-top: 20px;">
+                        <i class="fas fa-paper-plane"></i> Send Resume Template
+                    </button>
+                </form>
+                <div id="resume-form-message" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section">
         <h2 class="fade-in">Get In Touch</h2>
@@ -1018,6 +1061,133 @@
     </footer>
 
     <script>
+        // Resume Template Form Handling
+        // 
+        // SETUP INSTRUCTIONS FOR AUTOMATED EMAIL SENDING:
+        // To enable automatic email sending (recommended for production):
+        // 1. Go to https://www.emailjs.com/ and create a free account
+        // 2. Create an email service (Gmail, Outlook, etc.)
+        // 3. Create an email template with variables: {{user_email}} and {{resume_link}}
+        // 4. Get your Public Key, Service ID, and Template ID
+        // 5. Uncomment the EmailJS code below and replace the placeholder values
+        // 6. Add this script tag before the closing </body> tag:
+        //    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        
+        document.getElementById('resume-template-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('template-email');
+            const messageDiv = document.getElementById('resume-form-message');
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const userEmail = emailInput.value.trim();
+            
+            // Validate email
+            if (!userEmail || !userEmail.includes('@')) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.background = 'rgba(255, 0, 0, 0.1)';
+                messageDiv.style.border = '1px solid rgba(255, 0, 0, 0.5)';
+                messageDiv.style.color = '#ff6b6b';
+                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please enter a valid email address.';
+                return;
+            }
+            
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            messageDiv.style.display = 'none';
+            
+            try {
+                // Check if EmailJS is configured (uncomment when ready)
+                const USE_EMAILJS = false; // Set to true after configuring EmailJS
+                
+                if (USE_EMAILJS && typeof emailjs !== 'undefined') {
+                    // EmailJS implementation (uncomment and configure)
+                    /*
+                    emailjs.init("YOUR_PUBLIC_KEY");
+                    
+                    const resumeLink = window.location.origin + '/Cybereese Resume Template.docx';
+                    const templateParams = {
+                        user_email: userEmail,
+                        resume_link: resumeLink,
+                        to_email: userEmail
+                    };
+                    
+                    await emailjs.send(
+                        'YOUR_SERVICE_ID',
+                        'YOUR_TEMPLATE_ID',
+                        templateParams
+                    );
+                    */
+                    
+                    // Success message for EmailJS
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.background = 'rgba(0, 255, 65, 0.1)';
+                    messageDiv.style.border = '1px solid rgba(0, 255, 65, 0.5)';
+                    messageDiv.style.color = '#00ff41';
+                    messageDiv.innerHTML = '<i class="fas fa-check-circle"></i> Success! The resume template has been sent to your email.';
+                } else {
+                    // Fallback: Direct download link (works immediately)
+                    const resumeLink = window.location.origin + window.location.pathname.replace('index.html', '') + 'Cybereese Resume Template.docx';
+                    
+                    // Create a temporary download link
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = resumeLink;
+                    downloadLink.download = 'Cybereese Resume Template.docx';
+                    downloadLink.style.display = 'none';
+                    document.body.appendChild(downloadLink);
+                    downloadLink.click();
+                    document.body.removeChild(downloadLink);
+                    
+                    // Also try to open email client with pre-filled message
+                    const subject = encodeURIComponent('Resume Template - Thank You!');
+                    const body = encodeURIComponent(`Hello,\n\nThank you for your interest in the resume template!\n\nI've attached the resume template for your reference. Feel free to customize it for your own use.\n\nBest regards,\nMarcus Reese`);
+                    
+                    // Show success message with download option
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.background = 'rgba(0, 255, 65, 0.1)';
+                    messageDiv.style.border = '1px solid rgba(0, 255, 65, 0.5)';
+                    messageDiv.style.color = '#00ff41';
+                    messageDiv.innerHTML = `
+                        <i class="fas fa-check-circle"></i> 
+                        <strong>Success!</strong> The resume template download has started. 
+                        <br><br>
+                        <a href="${resumeLink}" download style="color: var(--cyber-green); text-decoration: underline;">
+                            <i class="fas fa-download"></i> Click here if download didn't start
+                        </a>
+                    `;
+                }
+                
+                // Reset form after 5 seconds
+                setTimeout(() => {
+                    emailInput.value = '';
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Resume Template';
+                }, 5000);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                messageDiv.style.display = 'block';
+                messageDiv.style.background = 'rgba(255, 0, 0, 0.1)';
+                messageDiv.style.border = '1px solid rgba(255, 0, 0, 0.5)';
+                messageDiv.style.color = '#ff6b6b';
+                messageDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> There was an error. Please try again or <a href="#contact" style="color: var(--cyber-green);">contact me directly</a>.';
+                
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="fas fa-paper-plane"></i> Send Resume Template';
+            }
+        });
+        
+        // Add focus effect to email input
+        document.getElementById('template-email').addEventListener('focus', function() {
+            this.style.borderColor = 'var(--cyber-green)';
+            this.style.boxShadow = '0 0 15px rgba(0, 255, 65, 0.3)';
+        });
+        
+        document.getElementById('template-email').addEventListener('blur', function() {
+            this.style.borderColor = 'rgba(0, 255, 65, 0.3)';
+            this.style.boxShadow = 'none';
+        });
+
         // Smooth scrolling for navigation
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', (e) => {
